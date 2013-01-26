@@ -111,6 +111,16 @@ val test_case56b = assert( dates_in_months_challenge([date1, date2, date3, date4
 val test_case57b = assert( dates_in_months_challenge([date1, date2, date3, date4, date5], [2,3,2,3]), [date3, date5, date4])
 val test_case58b = assert( dates_in_months_challenge([date1, date2], [4,4,4]), [])
 
+
+(* test case for Reasonable date problem 13 *)
+val test_case59 = assert (reasonable_date(0,12,1), false)
+val test_case60 = assert (reasonable_date(1400,0,1), false)
+val test_case61 = assert (reasonable_date(1970,11,31), false)
+val test_case62 = assert (reasonable_date(1970,1,0), false)
+val test_case63 = assert (reasonable_date(2012,2,29), true)
+val test_case64 = assert (reasonable_date(2013,2,29), false)
+
+
 (* submission failed checks *)
 val test_case_failed_1_val = month_range(1, 365)
 val test_case_failed_2_val = month_range(1, 31)

@@ -171,3 +171,17 @@ fun number_in_months_challenge(dates : (int*int*int) list, months : int list) =
 fun dates_in_months_challenge(dates : (int*int*int) list, months : int list) =
      dates_in_months(dates, remove_duplicates(months))
 
+val month_days_leap = [31,29,31,30,31,30,31,31,30,31,30,31]
+
+fun is_leap(year : int) =
+    ((year mod 400 = 0) orelse (year mod 4 = 0 andalso year mod 100 <> 0))
+
+fun reasonable_date (date : int*int*int) =
+    if #1 date < 1 then false else 
+    if #2 date > 12 orelse #2 date < 1 then false else 
+    let
+	val days = if is_leap(#1 date) then month_days_leap else month_days
+    in
+	if #3 date < 1 orelse #3 date > List.nth (days, #2 date - 1) then false
+	else true 
+    end
