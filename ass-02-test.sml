@@ -75,3 +75,6 @@ val tc_21 = assert ( all_same_color([(Clubs,Jack),(Spades,King),(Spades,Ace),(Sp
 (* test cases for sum_card function *)
 val tc_22 = assert ( sum_cards([(Clubs,Jack),(Spades,King),(Spades,Ace),(Spades,Jack)]), 41)
 val tc_23 = assert ( sum_cards([(Clubs,Jack),(Spades,King),(Spades,Ace),(Spades,Num(2))]), 33)
+
+(* test cases for core function *)
+val tc_24 = score([(Clubs,Jack),(Spades,King),(Spades,Ace),(Spades,Num(2))], 3)

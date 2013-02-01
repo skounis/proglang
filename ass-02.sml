@@ -160,7 +160,7 @@ fun all_same_color(cs : card list) =
       | head::(neck::rest) => (card_color(head) = card_color(neck)) andalso all_same_color(neck::rest)
 
 
-(* 3.e Write a function sum_cards, which 
+(* 2.e Write a function sum_cards, which 
    - takes a list of cards and 
    - returns the sum of their values. 
 
@@ -175,5 +175,16 @@ fun sum_cards(cs : card list) =
 	aux(cs,0)
     end
 
-			  
-	
+
+(* 2.f Write a function score, which 
+   - takes a card list (the held-cards) and an int (the goal) 
+   - and computes the score as described above. *)	
+fun score (cs, goal) = let
+    val sum = sum_cards cs
+    val pre = if (sum > goal) then 3 * (sum - goal) else (goal - sum)
+  in
+    if (all_same_color cs) then pre div 2 else pre
+  end
+
+(* 2.g The game *)
+
