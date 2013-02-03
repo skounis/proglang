@@ -34,7 +34,7 @@ val tc_09 = assert( similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["
    so they will not type-check if officiate is not defined.
  *)
 
-(*
+
 fun provided_test1 () = (* correct behavior: raise IllegalMove *)
     let val cards = [(Clubs,Jack),(Spades,Num(8))]
 	val moves = [Draw,Discard(Hearts,Jack)]
@@ -48,8 +48,6 @@ fun provided_test2 () = (* correct behavior: return 3 *)
     in
  	officiate(cards,moves,42)
     end
-*)
-
 
 (* test cases for card_color function *)
 val tc_10 = assert ( card_color(Clubs,Jack), Black)
@@ -78,3 +76,8 @@ val tc_23 = assert ( sum_cards([(Clubs,Jack),(Spades,King),(Spades,Ace),(Spades,
 
 (* test cases for core function *)
 val tc_24 = score([(Clubs,Jack),(Spades,King),(Spades,Ace),(Spades,Num(2))], 3)
+
+(* test cases for the game *)
+(* val tc_25 = provided_test1() *)
+val tc_26 = provided_test2()
+

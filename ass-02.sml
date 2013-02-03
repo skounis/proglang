@@ -140,7 +140,7 @@ fun card_value (_,r) =
 
    If c is in the list more than once, remove only the first one.
    If c is not in the list, raise the exception e. You can compare cards with =. *)
-fun remove_card(cs : card list, c : card, e) = 
+fun remove_card (cs : card list, c : card, e) = 
     case cs of
 	[] => raise e
       | head::tail => if (head = c ) 
@@ -153,7 +153,7 @@ fun remove_card(cs : card list, c : card, e) =
    
    Hint: An elegant solution is very similar to one of the functions using nested
    pattern-matching in the lectures. *)
-fun all_same_color(cs : card list) = 
+fun all_same_color (cs : card list) = 
     case cs of
 	[] => true
       | head::[] => true
@@ -165,7 +165,7 @@ fun all_same_color(cs : card list) =
    - returns the sum of their values. 
 
    Use a locally defined helper function that is tail recursive. *)
-fun sum_cards(cs : card list) = 
+fun sum_cards (cs : card list) = 
     let
 	fun aux (cs, acc)=
 	    case cs of
@@ -179,7 +179,7 @@ fun sum_cards(cs : card list) =
 (* 2.f Write a function score, which 
    - takes a card list (the held-cards) and an int (the goal) 
    - and computes the score as described above. *)	
-fun score (cs, goal) = let
+fun score (cs : card list, goal : int) = let
     val sum = sum_cards cs
     val pre = if (sum > goal) then 3 * (sum - goal) else (goal - sum)
   in
@@ -187,4 +187,27 @@ fun score (cs, goal) = let
   end
 
 (* 2.g The game *)
+fun officiate (cards : card list, moves : move list, goal : int) = 
+    let
+	fun aux (cards : card list, held : card list, moves : move list, goal : int) =
+	    case (cards, held, moves, goal) of
+		(_,     _, [],    _) => score (held, goal)
+	      | ([],    _, _,     _) => score (held, goal)
+	      | (c::cs, _, m::ms, _) => case m of
+				      Discard d => aux (c::cs, remove_card (held, d, IllegalMove), ms, goal)
+				    | Draw => case c::cs of
+						  [] => score (held, goal)
+						  | _ => 
+						    let
+							val held' = c::held
+							val held_sum = sum_cards (held')
+						    in
+							if (held_sum > goal)
+							then score (held', goal)
+							else aux (cs, held', ms, goal)
+						    end
+    in
+	aux (cards, [] , moves, goal)
+    end
+			       
 
